@@ -66,12 +66,7 @@ End Sub
 Private Sub UserForm_Activate()
     
     Me.StartUpPosition = START_POS
-    B1edit.Caption = MPSAdminWidget.WB1.Caption
-    B2edit.Caption = MPSAdminWidget.WB2.Caption
-    B3edit.Caption = MPSAdminWidget.WB3.Caption
-    B4edit.Caption = MPSAdminWidget.WB4.Caption
-    B5edit.Caption = MPSAdminWidget.WB5.Caption
-    B6edit.Caption = MPSAdminWidget.WB6.Caption
+    Call Settings.Captions
     
 End Sub
 
