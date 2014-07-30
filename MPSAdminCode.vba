@@ -50,6 +50,7 @@ Public myLinks(5, 5) As String
 
 ' These are the User Settings variables to be read/written to the Settings.txt file
 Public SelectedBrowser As Integer, B1 As String, B2 As String, B3 As String, B4 As String, B5 As String, B6 As String, StdAtt As Integer, StdLink As Integer
+Public B1F As String, B2F As String, B3F As String, B4F As String, B5F As String, B6F As String
 
 Global Const START_POS = 3
 
@@ -154,6 +155,7 @@ End If
 ' This is where the Browser check will be carried out
             Select Case BrowserID
             
+            ' N.B. IE currently DOES NOT open in a new tab. Forces a new window each time
             Case 1
                Dim pathIE As String
                 pathIE = "C:\Program Files\Internet Explorer\iexplore.exe"
@@ -273,7 +275,7 @@ Else
                 URLres = SxDpre & StdStr & SxDsuf
                 WebURL = URLres
                 BrowserOpen "" & WebURL & "", SelectedBrowser
-            ' Should skip the rest of this now.
+                ' Should skip the rest of this now.
             Exit Sub
             
     Else
@@ -311,36 +313,34 @@ URLpre = "http://www.sussex.ac.uk/profiles/search/"
 
 End Sub
 
-' These button-linked macros are to be removed
-' These fixed links were only in Widget v1.0
-Public Sub SxD()
-    WebURL = "https://direct.sussex.ac.uk/"
+' These are the customisable button events
+Public Sub WB1()
+    WebURL = myLinks(1, 0)
     BrowserOpen "" & WebURL & "", SelectedBrowser
 End Sub
 
-Public Sub SyD()
-    WebURL = "https://studydirect.sussex.ac.uk/login/"
+Public Sub WB2()
+    WebURL = myLinks(1, 1)
     BrowserOpen "" & WebURL & "", SelectedBrowser
 End Sub
 
-Public Sub BIS()
-    WebURL = "https://direct.sussex.ac.uk/page.php?page=ta_course_teaching&trail=teaching_admin&tutor=331341&ayear=13%2F14&term=&rel=ADMIN"
-    'WebURL = "http://www.sussex.ac.uk/its/services/staffservices/businessapplications/"
+Public Sub WB3()
+    WebURL = myLinks(1, 2)
     BrowserOpen "" & WebURL & "", SelectedBrowser
 End Sub
 
-Public Sub CMS()
-    WebURL = "http://owf.admin.sussex.ac.uk/jbisapps"
+Public Sub WB4()
+    WebURL = myLinks(1, 3)
     BrowserOpen "" & WebURL & "", SelectedBrowser
 End Sub
 
-Public Sub Cognos()
-    WebURL = "https://bis1.sussex.ac.uk/cognos"
+Public Sub WB5()
+    WebURL = myLinks(1, 4)
     BrowserOpen "" & WebURL & "", SelectedBrowser
 End Sub
 
-Public Sub WCM()
-    WebURL = "http://www.sussex.ac.uk/wcm/entry/"
+Public Sub WB6()
+    WebURL = myLinks(1, 5)
     BrowserOpen "" & WebURL & "", SelectedBrowser
 End Sub
 
