@@ -13,33 +13,32 @@ End Sub
 
 Private Sub UserForm_Initialize()
     MPSAdminWidget.StartUpPosition = START_POS
+    Call Settings.Captions
 End Sub
-
 
 ' THESE WILL ALL NEED TO BE AMENDED TO ADAPT TO SETTINGS
 Private Sub WB1_Click()
-' i.e. Call MPSAdminCode.WB1
-    Call MPSAdminCode.BIS
+    Call MPSAdminCode.WB1
 End Sub
 
 Private Sub WB2_Click()
-    Call MPSAdminCode.WCM
+    Call MPSAdminCode.WB2
 End Sub
 
 Private Sub WB3_Click()
-    Call MPSAdminCode.SxD
+    Call MPSAdminCode.WB3
 End Sub
 
 Private Sub WB4_Click()
-    Call MPSAdminCode.SyD
+    Call MPSAdminCode.WB4
 End Sub
 
 Private Sub WB5_Click()
-    Call MPSAdminCode.CMS
+    Call MPSAdminCode.WB5
 End Sub
 
 Private Sub WB6_Click()
-    Call MPSAdminCode.Cognos
+    Call MPSAdminCode.WB6
 End Sub
 
 Private Sub StaffSearchBox_AfterUpdate()
