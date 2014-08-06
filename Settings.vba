@@ -79,12 +79,12 @@ If Dir(SettingsFile) <> "" Then
                         End If
                 Loop
             Close #ReadFile
-                Dim MyStr As String
-                MyStr = "Links 1 - 6:" & vbCrLf
-                For i = 0 To 5
-                    MyStr = MyStr & myLinks(0, i) & vbCrLf
-                Next
-                MsgBox (MyStr)
+                'Dim MyStr As String
+                'MyStr = "Links 1 - 6:" & vbCrLf
+                'For i = 0 To 5
+                '    MyStr = MyStr & myLinks(0, i) & vbCrLf
+                'Next
+                'MsgBox (MyStr)
 Else
             Set fs = CreateObject("Scripting.FileSystemObject")
             Set a = fs.CreateTextFile(SettingsFile, True, 0)
@@ -104,6 +104,7 @@ Else
             a.WriteLine ("StdAtt = 0")
             a.WriteLine ("StdLink = 0")
             a.Close
+            ' Default Settings
             B1 = "http://direct.sussex.ac.uk"
             B2 = "https://studydirect.sussex.ac.uk/login/"
             B3 = "http://www.sussex.ac.uk/its/services/staffservices/businessapplications/"
@@ -142,18 +143,18 @@ Handler:
 End Sub
 
 Public Sub Captions()
-MPSAdminWidget.WB1.Caption = B1F
-MPSAdminWidget.WB2.Caption = B2F
-MPSAdminWidget.WB3.Caption = B3F
-MPSAdminWidget.WB4.Caption = B4F
-MPSAdminWidget.WB5.Caption = B5F
-MPSAdminWidget.WB6.Caption = B6F
-MPSAdminSettings.B1edit.Caption = B1F
-MPSAdminSettings.B2edit.Caption = B2F
-MPSAdminSettings.B3edit.Caption = B3F
-MPSAdminSettings.B4edit.Caption = B4F
-MPSAdminSettings.B5edit.Caption = B5F
-MPSAdminSettings.B6edit.Caption = B6F
+    MPSAdminWidget.WB1.Caption = B1F
+    MPSAdminWidget.WB2.Caption = B2F
+    MPSAdminWidget.WB3.Caption = B3F
+    MPSAdminWidget.WB4.Caption = B4F
+    MPSAdminWidget.WB5.Caption = B5F
+    MPSAdminWidget.WB6.Caption = B6F
+    MPSAdminSettings.B1edit.Caption = B1F
+    MPSAdminSettings.B2edit.Caption = B2F
+    MPSAdminSettings.B3edit.Caption = B3F
+    MPSAdminSettings.B4edit.Caption = B4F
+    MPSAdminSettings.B5edit.Caption = B5F
+    MPSAdminSettings.B6edit.Caption = B6F
 End Sub
 
 Public Sub SaveSettings()
