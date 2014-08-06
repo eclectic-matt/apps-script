@@ -4,7 +4,7 @@
 
 ' Global constants and apiShowWindow - these are for the IE browser window hack
 Declare Function apiShowWindow Lib "user32" Alias "ShowWindow" _
-            (ByVal hwnd As Long, ByVal nCmdShow As Long) As Long
+            (ByVal hWnd As Long, ByVal nCmdShow As Long) As Long
 Global Const SW_MAXIMIZE = 3
 Global Const SW_SHOWNORMAL = 1
 Global Const SW_SHOWMINIMIZED = 2
@@ -53,20 +53,6 @@ Public SelectedBrowser As Integer, B1 As String, B2 As String, B3 As String, B4 
 Public B1F As String, B2F As String, B3F As String, B4F As String, B5F As String, B6F As String
 
 Global Const START_POS = 3
-
-'TESTING USERFORM POSITION OBJECTS
-'Public UFTop As Object
-'Public UFLeft As Object
-'Global Const UserFormTop As Object = Outlook.Application.ActiveExplorer.Height
-'Global Const UserFormLeft As Object = Outlook.Application.ActiveExplorer.Width - .Width
-
-'        .Left = Outlook.Application.ActiveExplorer.Width - .Width
-'        .Top = Outlook.Application.ActiveExplorer.Height / 2
-
-'Manual = 0 No initial setting specified.
-'CenterOwner = 1 Center on the item to which the UserForm belongs.
-'CenterScreen = 2 Center on the whole screen.
-'WindowsDefault = 3 Position in upper-left corner of screen.
 
 Dim IEApp As Object
 
@@ -143,6 +129,8 @@ End Function
 
 Public Sub BrowserOpen(WebURL As String, BrowserID As Integer)
 
+On Error GoTo handleError
+
 ' Quick check in case no browser selected (default = 2)
 If BrowserID = 0 Then
     BrowserID = DEF_BROWSER
@@ -157,46 +145,27 @@ End If
             
             ' N.B. IE currently DOES NOT open in a new tab. Forces a new window each time
             Case 1
-               Dim pathIE As String
+                Dim pathIE As String
                 pathIE = "C:\Program Files\Internet Explorer\iexplore.exe"
-                    If Dir(pathIE) = "" Then pathIE = "C:\Program Files\Internet Explorer\iexplore.exe"
-                    
+                    If Dir(pathIE) = "" Then
+                        pathIE = "C:\Program Files\Internet Explorer\iexplore.exe"
+                        End If
+                    ' Is this necessary?
                     If Dir(pathIE) = "" Then
                         MsgBox "IE Path Not Found", vbCritical, "Macro Ending"
                         Exit Sub
                     End If
-                    Dim r As Long
-                    r = Shell(pathIE & """" & WebURL, vbHide)
-                ' Trying to improve shell address to get new tab open - CLng(2048)
-                'Shell """" & pathIE & """" & WebURL, vbHide, CLng(2048)
-                ' --- Internet Explorer ---
-            
-            'Case 1
-            '    ' --- Internet Explorer ---
-            '    Set IEApp = CreateObject("InternetExplorer.Application") 'Set IEapp = InternetExplorer
-            '    With IEApp
-            '        .Silent = True 'No Pop-ups
-            '        .Visible = True 'Set InternetExplorer to Visible
-            '        .navigate WebURL 'Load web page
-            '
-            '       'Run and Wait, if you intend on passing variables at a later stage
-            '        Do While .Busy
-            '            DoEvents
-            '        Loop
-            '
-            '        'Do While .ReadyState <> 4
-            '        '    DoEvents
-            '        'Loop
-            '
-            '    End With
-            '    ' --- Internet Explorer ---
-                
+                    ' Is this necessary?
+                    'Dim r As Long
+                    Shell """" & pathIE & """" & WebURL, vbHide
+                         
             Case 2
                 ' --- Firefox ---
                 Dim pathFireFox As String
                 pathFireFox = "C:\Program Files (x86)\Mozilla Firefox\firefox.exe"
-                    If Dir(pathFireFox) = "" Then pathFireFox = "C:\Program Files (x86)\Mozilla Firefox\firefox.exe"
-                    
+                    If Dir(pathFireFox) = "" Then
+                        pathFireFox = "C:\Program Files (x86)\Mozilla Firefox\firefox.exe"
+                        End If
                     If Dir(pathFireFox) = "" Then
                         MsgBox "FireFox Path Not Found", vbCritical, "Macro Ending"
                         Exit Sub
@@ -208,8 +177,9 @@ End If
                 ' --- Chrome ---
                 Dim pathChrome As String
                 pathChrome = "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-                    If Dir(pathChrome) = "" Then pathChrome = "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-                    
+                    If Dir(pathChrome) = "" Then
+                        pathChrome = "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+                        End If
                     If Dir(pathChrome) = "" Then
                         MsgBox "Chrome Path Not Found", vbCritical, "Macro Ending"
                         Exit Sub
@@ -221,38 +191,14 @@ End If
                 MsgBox ("ELSE. bID = " & BrowserID)
             End Select
             
+handleError:
+    'MsgBox ("Error: " & vbError)
+    Exit Sub
+    Close
+            
 End Sub
 
 Public Sub StudentSearch()
-
-' This is the URL for the student lists searches.
-
-'https://direct.sussex.ac.uk/page.php?realm=searches&page=directory_search_results&formlet=student_programme_lists&trail=directories&step=search&re_search_page=directories&x=59&y=6
-'&department%5B%5D=MATHEMATICS
-'&department%5B%5D=PHYSICS+%26+ASTRONOMY
-'&programme_code%5B%5D=F3505T
-'&programme_code%5B%5D=G1601T
-'&level%5B%5D=PG%28T%29
-'&cohort%5B%5D=2012
-'&year%5B%5D=3
-
-' i.e. to search student lists:
-' SLpre = "https://direct.sussex.ac.uk/page.php?realm=searches&page=directory_search_results&formlet=student_programme_lists&trail=directories&step=search&re_search_page=directories&x=59&y=6"
-
-' For each "Dept" in "Selected Depts"
-'       Append SLdept "&department%5B%5D="
-'       Append SLdept1 ... 3, where SLdept1 = "MATHEMATICS"
-' Next ("PHYSICS+%26+ASTRONOMY")
-
-' For each "Course" in "Selected Courses"
-'       Append SLcourse = "&programme_code%5B%5D="
-'       Append SLcourse1 = "F3505T"
-' Next ("G1601T")
-
-' For each "Level" in "Selected Levels"
-'       Append SLlevel = "&level%5B%5D="
-'       Append SLlevel1 = "PG%28T%29"
-' Next ("UG")
 
 Dim StdStr As String
 Dim SxDpre, SxDsuf As String
@@ -313,6 +259,28 @@ URLpre = "http://www.sussex.ac.uk/profiles/search/"
 
 End Sub
 
+Public Sub SussexSearch()
+    Dim SearchTerm As String
+    SearchTerm = MPSAdminWidget.SussexSearchBox.Text
+    'SearchTerm = LCase(SearchTerm)
+            
+    SearchTerm = LCase(Replace(SearchTerm, " ", "%20"))
+        
+    URLpre = "http://www.sussex.ac.uk/search/?type=site&t="
+    URLres = "&realm=internal"
+    
+        If SearchTerm = "" Then
+                Notify.NotifyMsg.Caption = "Search Box Empty!"
+                Notify.Show
+        Else
+                URLres = URLpre & SearchTerm & URLres
+                WebURL = URLres
+                BrowserOpen "" & WebURL & "", SelectedBrowser
+                Exit Sub
+        End If
+
+End Sub
+
 ' These are the customisable button events
 Public Sub WB1()
     WebURL = myLinks(1, 0)
@@ -345,6 +313,7 @@ Public Sub WB6()
 End Sub
 
 Public Sub WidgetShow()
+    Settings.Captions
     Load MPSAdminWidget
     MPSAdminWidget.StartUpPosition = START_POS
     MPSAdminWidget.Show vbModeless
