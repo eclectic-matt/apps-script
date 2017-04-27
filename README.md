@@ -1,7 +1,8 @@
-Work-Stuff
+Apps-Script
 ==========
 
-These are a few bits and pieces that I am working on in the office.
+These are a few bits and pieces for Google Apps Script.
+https://developers.google.com/apps-script/
 
 No need to pay attention - this is just so that collaboration/edits can be tracked.
 
