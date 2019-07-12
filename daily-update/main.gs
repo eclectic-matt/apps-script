@@ -19,7 +19,7 @@ var metOfficeAPIkey = "YOUR-MET-OFFICE-API-KEY";
   -- Email Variables
 */
 // Update this to your email(s) which will receive the daily update
-var recipients = "matthewrtiernan@gmail.com; workingtonhouse@outlook.com";
+var recipients = "YOUREMAIL@example.com; anotheremail@example.com;";
 var subject = "Daily Update Email - ";
 var body = "";
 
