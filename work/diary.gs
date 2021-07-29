@@ -70,7 +70,7 @@ function generateDiary(monthSheetName = null) {
   } // end of loop
 
   //Logger.log(strDiary);
-  sendEmailCheckQuotas(strDiary);
+  sendEmailCheckQuotas(strDiary, 'Summary');
 
 } // end of function
 
@@ -113,11 +113,10 @@ function getRowOutput(row){
   return strOut; 
 }
 
-function sendEmailCheckQuotas(message){
+function sendEmailCheckQuotas(message, subject = 'Summary'){
 
   /* EDIT THESE */
   var emailToSendTo = strMyEmail;
-  var subject = "Diary Summary";
   var message = "<html><body>" + message + "</body></html>";
   var fromName = strMyEmail;
 
